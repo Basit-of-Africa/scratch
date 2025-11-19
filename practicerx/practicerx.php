@@ -112,6 +112,7 @@ final class PracticeRx {
 			new \PracticeRx\Api\PatientsController(),
 			new \PracticeRx\Api\PractitionersController(),
 			new \PracticeRx\Api\EncountersController(),
+			new \PracticeRx\Api\SystemController(),
 		);
 
 		foreach ( $controllers as $controller ) {
