@@ -21,9 +21,22 @@ define( 'PRACTICERX_URL', plugin_dir_url( __FILE__ ) );
 define( 'PRACTICERX_BASENAME', plugin_basename( __FILE__ ) );
 
 // Autoloader
-if ( file_exists( PRACTICERX_PATH . 'vendor/autoload.php' ) ) {
-	require_once PRACTICERX_PATH . 'vendor/autoload.php';
-}
+spl_autoload_register( function ( $class ) {
+	$prefix = 'PracticeRx\\';
+	$base_dir = PRACTICERX_PATH . 'includes/';
+
+	$len = strlen( $prefix );
+	if ( strncmp( $prefix, $class, $len ) !== 0 ) {
+		return;
+	}
+
+	$relative_class = substr( $class, $len );
+	$file = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
+
+	if ( file_exists( $file ) ) {
+		require $file;
+	}
+} );
 
 /**
  * Main Plugin Class
